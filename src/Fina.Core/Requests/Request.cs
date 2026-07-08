@@ -1,7 +1,6 @@
-﻿namespace Fina.Core.Requests
+﻿namespace Fina.Core.Requests;
+
+public abstract class Request
 {
-    public abstract class Request
-    {
-        public string UserId { get; set; } = string.Empty;
-    }
+    public string UsuarioId { get; set; } = string.Empty;
 }

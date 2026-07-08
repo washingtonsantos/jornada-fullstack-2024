@@ -1,12 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "h/R68QSLVZw=",
+  "dgSpecHash": "ijRPUh6XfIk=",
   "success": true,
-  "projectFilePath": "F:\\DEV\\ESTUDOS\\Washington\\Blazor\\Fina\\src\\Fina.Core\\Fina.Core.csproj",
+  "projectFilePath": "E:\\DEV\\ESTUDOS\\Washington\\Blazor\\Fina\\src\\Fina.Core\\Fina.Core.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\washi\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.19\\microsoft.windowsdesktop.app.ref.7.0.19.nupkg.sha512",
-    "C:\\Users\\washi\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.19\\microsoft.netcore.app.ref.7.0.19.nupkg.sha512",
-    "C:\\Users\\washi\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.19\\microsoft.aspnetcore.app.ref.7.0.19.nupkg.sha512"
+    "C:\\Users\\washi\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512"
   ],
   "logs": []
 }

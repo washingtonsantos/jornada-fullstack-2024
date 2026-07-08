@@ -1,0 +1,38 @@
+﻿@page "/categorias"
+@using Fina.App.Pages.Categorias
+@inherits GetAllCategoriesPage
+
+<MudText Typo="Typo.h3">Categorias</MudText>
+<div class="d-flex justify-end">
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               StartIcon="@Icons.TwoTone.Add"
+               Href="/categorias/adicionar">
+        Nova Categoria
+    </MudButton>
+</div>
+
+<MudDataGrid Class="mt-4"
+             Items="@Categorias"
+             Filterable="true">
+    <Columns>
+        <PropertyColumn Property="x => x.Id" Title="#" />
+        <PropertyColumn Property="x => x.Nome" Title="Categoria" />
+        @if (IsBusy)
+        {
+            <MudProgressCircular Indeterminate="true" />
+        }
+        else
+        {
+            <TemplateColumn class="d-flex justity-end" Filterable="false">
+                <CellTemplate>
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                   Color="Color.Error"
+                                   title="excluir"
+                                   OnClick="() => OnDeleteButtonClickedAsync(context.Item.Id, context.Item.Nome)">
+                    </MudIconButton>
+                </CellTemplate>
+            </TemplateColumn>
+        }
+    </Columns>
+</MudDataGrid>

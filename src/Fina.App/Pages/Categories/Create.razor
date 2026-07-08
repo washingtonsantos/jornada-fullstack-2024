@@ -1,0 +1,36 @@
+﻿@page "/categorias/adicionar"
+@using Fina.App.Pages.Categorias
+@inherits CreateCategoryPage
+
+<MudText Typo="Typo.h3">Nova Categoria</MudText>
+
+<MudPaper Class="p-8 mt-4">
+    <EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
+        <DataAnnotationsValidator /> @* validação do data annotation da model *@
+        <ValidationSummary></ValidationSummary> @* vai exibir uma lista com todos os erros *@
+
+        <MudTextField Label="Titulo"
+                      HelperText="Campo obrigatório"
+                      @bind-Value="InputModel.Titulo"
+                      For="@(() => InputModel.Titulo)"/>
+
+        <MudTextField Label="Descrição"
+                      Lines="5"
+                      HelperText="Campo obrigatório"
+                      @bind-Value="InputModel.Descricao"
+                      For="@(() => InputModel.Descricao)" />
+
+        @if (IsBusy)
+        {
+            <MudProgressCircular Indeterminate="true" Color="Color.Primary"/>
+        }
+        else
+        {
+            <MudButton ButtonType="ButtonType.Submit"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary">
+                Salvar
+            </MudButton>
+        }
+    </EditForm>
+</MudPaper>
