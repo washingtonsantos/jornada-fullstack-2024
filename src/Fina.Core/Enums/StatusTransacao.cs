@@ -2,9 +2,8 @@
 
 public enum StatusTransacao
 {
-    Criado = 1,
-    Agendado,
-    Pendente,
-    Realizado,
-    Estorno
+    Pendente = 1,
+    Agendado = 2,
+    Efetivado = 3,
+    Estorno = 9
 }

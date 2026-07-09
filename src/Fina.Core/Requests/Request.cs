@@ -2,5 +2,5 @@
 
 public abstract class Request
 {
-    public string UsuarioId { get; set; } = string.Empty;
+    public Guid UsuarioId { get; set; }
 }

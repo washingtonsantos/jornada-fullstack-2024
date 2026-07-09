@@ -8,7 +8,7 @@ public class CriarCategoriaValidator : AbstractValidator<CriarCategoriaRequest>
     public CriarCategoriaValidator()
     {
         // Titulo
-        RuleFor(x => x.Titulo)
+        RuleFor(x => x.Nome)
             .NotEmpty()
             .WithMessage("Título é obrigatório")
             .MinimumLength(3)
@@ -23,5 +23,9 @@ public class CriarCategoriaValidator : AbstractValidator<CriarCategoriaRequest>
             .MaximumLength(500)
             .WithMessage("Descrição deve ter no máximo 500 caracteres")
             .When(x => !string.IsNullOrEmpty(x.Descricao));
+
+        RuleFor(x => x.UsuarioId)
+            .NotEmpty()
+            .WithMessage("Usuário é obrigatório");
     }
 }

@@ -18,7 +18,7 @@ public class ExcluirBancoEndpoint : IEndpoint
 
     private static async Task<IResult> HandleAsync(
         IBancoHandler handler,
-        long id)
+        Guid id)
     {
         var request = new RemoverBancoRequest
         {

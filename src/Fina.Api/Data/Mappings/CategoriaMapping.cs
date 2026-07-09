@@ -8,7 +8,7 @@ public class CategoriaMapping : IEntityTypeConfiguration<Categoria>
 {
     public void Configure(EntityTypeBuilder<Categoria> builder)
     {
-        builder.ToTable("categoria");
+        builder.ToTable("categorias");
 
         builder.HasKey(x => x.Id);
 
@@ -19,7 +19,7 @@ public class CategoriaMapping : IEntityTypeConfiguration<Categoria>
             .IsRequired()
             .HasColumnName("nome")
             .HasColumnType("VARCHAR")
-            .HasMaxLength(80);
+            .HasMaxLength(100);
 
         builder.Property(x => x.Descricao)
             .IsRequired(false)
@@ -27,29 +27,28 @@ public class CategoriaMapping : IEntityTypeConfiguration<Categoria>
             .HasColumnType("VARCHAR")
             .HasMaxLength(255);
 
-        builder.Property(x => x.UsuarioId)
-            .IsRequired()
-            .HasColumnName("usuario_id")
+        builder.Property(x => x.TipoCategoria)
+            .IsRequired(true)
+            .HasColumnName("tipo_categoria")
             .HasColumnType("VARCHAR")
-            .HasMaxLength(160);
+            .HasMaxLength(20);
 
-        builder.Property(x => x.Descricao)
-           .IsRequired(false)
-           .HasColumnName("descricao")
-           .HasColumnType("VARCHAR")
-           .HasMaxLength(255);
+        builder.Property(x => x.UsuarioId)
+            .IsRequired(false)
+            .HasColumnName("usuario_id")
+            .HasColumnType("UUID");
 
         builder.Property(x => x.Icon)
            .IsRequired(false)
            .HasColumnName("icon")
            .HasColumnType("VARCHAR")
-           .HasMaxLength(50);
+           .HasMaxLength(20);
 
         builder.Property(x => x.Color)
            .IsRequired(false)
            .HasColumnName("color")
            .HasColumnType("VARCHAR")
-           .HasMaxLength(10);
+           .HasMaxLength(20);
 
         builder.Property(x => x.IsDefault)
            .HasColumnName("is_default");
@@ -57,8 +56,9 @@ public class CategoriaMapping : IEntityTypeConfiguration<Categoria>
         builder.Property(x => x.Ativo)
            .HasColumnName("ativo");
 
-        builder.Property(x => x.CriadaEm)
+        builder.Property(x => x.CriadoEm)
            .IsRequired()
-           .HasColumnName("criada_em");
+           .HasColumnName("criado_em");
+        
     }
 }

@@ -19,7 +19,7 @@ public class AtualizarBancoEndpoint : IEndpoint
     private static async Task<IResult> HandleAsync(
         IBancoHandler handler,
         AtualizarBancoRequest request,
-        long id)
+        Guid id)
     {
         request.UsuarioId = ApiConfiguration.UsuarioId;
         request.Id = id;

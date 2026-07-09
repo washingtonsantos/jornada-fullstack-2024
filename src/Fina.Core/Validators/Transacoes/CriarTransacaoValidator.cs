@@ -13,8 +13,13 @@ public class CriarTransacaoValidator : AbstractValidator<CriarTransacaoRequest>
             .WithMessage("Título é obrigatório")
             .MinimumLength(3)
             .WithMessage("Título deve ter pelo menos 3 caracteres")
-            .MaximumLength(80)
-            .WithMessage("Título pode ter no máximo 80 caracteres");
+            .MaximumLength(255)
+            .WithMessage("Título pode ter no máximo 255 caracteres");
+
+        // PagoOuRecebidoEm
+        RuleFor(x => x.PagoOuRecebidoEm)
+            .NotEqual(DateTime.MinValue)
+            .WithMessage("Data pagamento/recebimento é obrigatório");
 
         // Valor
         RuleFor(x => x.Valor)
@@ -32,21 +37,33 @@ public class CriarTransacaoValidator : AbstractValidator<CriarTransacaoRequest>
             .IsInEnum()
             .WithMessage("Tipo de transação inválido");
 
+        // Tipo Pagamento/Recebimento
+        RuleFor(x => x.FormaPagamentoRecebimento)
+            .IsInEnum()
+            .WithMessage("Tipo de pagamento/recebimento inválido")
+            .When(formaPagamento => formaPagamento.DataEfetivado is null);
+
+        // ContaId
+        RuleFor(x => x.ContaId)
+            .NotEmpty()
+            .WithMessage("Conta é obrigatória");
+
         // Categoria
         RuleFor(x => x.CategoriaId)
             .NotEmpty()
             .WithMessage("Categoria é obrigatória");
 
-        // Data Pagamento/Recebimento (opcional, mas se fornecida, validar)
-        RuleFor(x => x.PagoOuRecebidoEm)
-            .LessThanOrEqualTo(DateTime.UtcNow)
-            .WithMessage("Data não pode ser no futuro")
-            .When(x => x.PagoOuRecebidoEm.HasValue);
+        // UsuarioId
+        RuleFor(x => x.UsuarioId)
+           .NotEmpty()
+           .WithMessage("Usuário é obrigatório");
 
-        // Forma Pagamento (validar comprimento se fornecido)
-        RuleFor(x => x.FormaPagamentoRecebimento)
-            .MaximumLength(50)
-            .WithMessage("Forma de pagamento deve ter no máximo 50 caracteres")
-            .When(x => !string.IsNullOrEmpty(x.FormaPagamentoRecebimento));
+        // Efetivado
+        RuleFor(x => x.Efetivado)
+            .NotEqual(true)
+            .When(pagoRecebido => pagoRecebido.PagoOuRecebidoEm is null || pagoRecebido.PagoOuRecebidoEm == DateTime.MinValue)
+            .WithMessage("Não é possível marcar como efetivado sem informar a data de pagamento/recebimento")
+            .When(dataEfetivado => dataEfetivado.DataEfetivado is null || dataEfetivado.DataEfetivado == DateTime.MinValue)
+            .WithMessage("Não é possível marcar como efetivado sem informar a data que foi efetivado"); ;
     }
 }

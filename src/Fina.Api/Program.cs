@@ -1,6 +1,7 @@
 using Fina.Api;
 using Fina.Api.Common.Api;
 using Fina.Api.Endpoints;
+using Fina.Core.Validators.Transacoes;
 using FluentValidation;
 using Serilog;
 
@@ -18,6 +19,7 @@ try
         .ReadFrom.Configuration(builder.Configuration)
         .ReadFrom.Services(services));
 
+    builder.Services.AddValidatorsFromAssemblyContaining<CriarTransacaoValidator>();
     builder.Services.AddValidatorsFromAssembly(typeof(Fina.Core.Models.Categoria).Assembly);
 
     builder.AddConfiguration();

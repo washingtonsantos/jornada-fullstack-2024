@@ -1,7 +1,6 @@
 ﻿using Fina.Api.Data;
 using Fina.Core.Handlers;
 using Fina.Core.Models;
-using Fina.Core.Requests.Bancos;
 using Fina.Core.Requests.Categorias;
 using Fina.Core.Responses;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +14,7 @@ public class CategoriaHandler(AppDbContext context, ILogger<CategoriaHandler> lo
         var categoria = new Categoria
         {
             UsuarioId = request.UsuarioId,
-            Nome = request.Titulo,
+            Nome = request.Nome,
             Descricao = request.Descricao,
         };
 
@@ -133,7 +132,7 @@ public class CategoriaHandler(AppDbContext context, ILogger<CategoriaHandler> lo
     {
         var query = context.Categorias
             .AsNoTracking()
-            .Where(x => x.UsuarioId == request.UsuarioId)
+            .Where(x => x.UsuarioId == request.UsuarioId || x.UsuarioId == null)
             .OrderBy(x => x.Nome);
 
          var categories = await query

@@ -16,5 +16,9 @@ public class AtualizarCategoriaValidator : AbstractValidator<AtualizarCategoriaR
             .WithMessage("Nome é obrigatório")
             .MinimumLength(3)
             .WithMessage("Nome deve ter pelo menos 3 caracteres");
+
+        RuleFor(x => x.UsuarioId)
+           .NotEmpty()
+           .WithMessage("Usuário é obrigatório");
     }
 }

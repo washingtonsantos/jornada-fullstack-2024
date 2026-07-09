@@ -41,7 +41,7 @@ public class TransacaoMapping : IEntityTypeConfiguration<Transacao>
            .HasColumnName("forma_pagamento_recebimento")
            .HasColumnType("VARCHAR");
 
-        builder.Property(x => x.OrigemPagamentoRecebimento)
+        builder.Property(x => x.ContaId)
            .IsRequired(false)
            .HasColumnName("origem_pagamento_recebimento")
            .HasColumnType("VARCHAR");

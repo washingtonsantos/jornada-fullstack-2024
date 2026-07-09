@@ -7,5 +7,5 @@ public class SubCategoria
     public string? Descricao { get; set; }
     public Guid CategoriaId { get; set; }
     public Categoria Categoria { get; set; } = null!;
-    public string UsuarioId { get; set; } = string.Empty;
+    public Guid UsuarioId { get; set; }
 }

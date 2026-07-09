@@ -4,6 +4,9 @@ using Fina.Core.Handlers;
 using Fina.Core.Models;
 using Fina.Core.Requests.Transacoes;
 using Fina.Core.Responses;
+using Fina.Core.Validators.Transacoes;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fina.Api.Handlers;
@@ -12,6 +15,17 @@ public class TransacaoHandler(AppDbContext context, ILogger<TransacaoHandler> lo
 {
     public async Task<Response<Transacao?>> CreateAsync(CriarTransacaoRequest request)
     {
+        var validator = new CriarTransacaoValidator();
+        ValidationResult result = validator.Validate(request);
+
+        if (!result.IsValid) 
+            return new Response<Transacao?>(null, 400, string.Join(';', result.Errors));
+
+        ValidarCategoria(result, request.CategoriaId, request.UsuarioId);
+
+        if (!result.IsValid)
+            return new Response<Transacao?>(null, 400, string.Join(';', result.Errors));
+
         //caso a request seja uma saída e o valor é positivo, o valor é convertido para negativo
         if (request is { TipoTransacao: Core.Enums.TipoTransacao.Despesa, Valor: >= 0 })
             request.Valor *= -1;
@@ -20,13 +34,18 @@ public class TransacaoHandler(AppDbContext context, ILogger<TransacaoHandler> lo
         {
             var transacao = new Transacao
             {
+                Titulo = request.Titulo,
+                Descricao = request.Descricao,
+                PagoRecebidoEm = request.PagoOuRecebidoEm,
+                TipoTransacao = request.TipoTransacao,
+                Valor = request.Valor,
                 CategoriaId = request.CategoriaId,
                 SubCategoriaId = request.SubCategoriaId,
-                Valor = request.Valor,
-                PagoRecebidoEm = request.PagoOuRecebidoEm,
-                Titulo = request.Titulo,
-                TipoTransacao = request.TipoTransacao
+                FormaPagamentoRecebimento = request.FormaPagamentoRecebimento,
+
             };
+
+            transacao.AtualizarStatus();
 
             await context.Transacoes.AddAsync(transacao);
             await context.SaveChangesAsync();
@@ -169,5 +188,17 @@ public class TransacaoHandler(AppDbContext context, ILogger<TransacaoHandler> lo
             logger.LogError(ex, "Ocorreu um erro ao buscar as últimas Transações");
             return new Response<List<Transacao?>>(null, 500, "Ocorreu um erro ao buscar as últimas Transações");
         }
+    }
+
+    private ValidationResult ValidarCategoria(ValidationResult result, Guid categoriaId, Guid usuarioId)
+    {
+        var categoria = context.Categorias
+            .AsNoTracking()
+            .FirstOrDefault(x => x.Id == categoriaId && x.UsuarioId == usuarioId);
+
+        if (categoria is null)
+            result.Errors.Add(new ValidationFailure("Categoria", "Categoria é obrigatório"));
+
+        return result;
     }
 }

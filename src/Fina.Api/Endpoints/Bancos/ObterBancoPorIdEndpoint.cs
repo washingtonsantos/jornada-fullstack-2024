@@ -18,7 +18,7 @@ public class ObterBancoPorIdEndpoint : IEndpoint
 
     public static async Task<IResult> HandleAsync(
         IBancoHandler handler,
-        long id)
+        Guid id)
     {
         var request = new ObterBancoPorIdRequest
         {
