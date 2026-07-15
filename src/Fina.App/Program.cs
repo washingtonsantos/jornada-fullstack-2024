@@ -12,6 +12,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddMudServices();
 
 builder.Services.AddTransient<ICategoriaHandler, CategoriaHandler>();
+builder.Services.AddTransient<ITransacaoHandler, TransacaoHandler>();
 
 builder.Services.AddHttpClient(
     WebConfiguration.HttpClientName,

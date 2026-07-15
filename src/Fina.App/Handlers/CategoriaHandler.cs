@@ -1,6 +1,5 @@
 ﻿using Fina.Core.Handlers;
 using Fina.Core.Models;
-using Fina.Core.Requests.Bancos;
 using Fina.Core.Requests.Categorias;
 using Fina.Core.Responses;
 using System.Net.Http.Json;
@@ -10,11 +9,11 @@ namespace Fina.App.Handlers;
 public class CategoriaHandler(IHttpClientFactory httpClientFactory) : ICategoriaHandler
 {
     private readonly HttpClient _httpClient = httpClientFactory.CreateClient(WebConfiguration.HttpClientName);
-    private readonly string endpointCategorias = "v1/categorias";
+    private readonly string endpointCategorias = "api/v1/categorias";
 
     public async Task<PagedResponse<List<Categoria?>>> ObterTodosAsync(ObterTodasCategoriasRequest request) =>
              await _httpClient.GetFromJsonAsync<PagedResponse<List<Categoria?>>>(endpointCategorias + $"?pageNumber={request.PageNumber}&pageSize={request.PageSize}") ??
-                new PagedResponse<List<Categoria?>>(null, 400);
+                new PagedResponse<List<Categoria?>>(null, 400, "");
 
     public async Task<Response<Categoria?>> ObterPorIdAsync(ObterCategoriaPorIdRequest request)
     {

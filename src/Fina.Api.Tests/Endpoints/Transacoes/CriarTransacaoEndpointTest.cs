@@ -15,7 +15,7 @@ namespace Fina.Api.Tests.Endpoints.Transacoes
 
             };
 
-            var result = await handlerMock.Object.CreateAsync(request);
+            var result = await handlerMock.Object.CriarAsync(request);
 
             // Assert
             result.Should().Be(true);

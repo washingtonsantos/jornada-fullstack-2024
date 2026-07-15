@@ -22,7 +22,7 @@ public class TransacaoHandlerTests
         var loggerMock = new Mock<ILogger<TransacaoHandler>>();
 
         var handler = new TransacaoHandler(context, loggerMock.Object);
-        var sut = await handler.CreateAsync(new CriarTransacaoRequest
+        var sut = await handler.CriarAsync(new CriarTransacaoRequest
         {
             // Set up the request properties as needed
         });

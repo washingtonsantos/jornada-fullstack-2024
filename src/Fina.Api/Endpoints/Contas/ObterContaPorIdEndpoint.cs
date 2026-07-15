@@ -1,26 +1,26 @@
 ﻿using Fina.Api.Common.Api;
 using Fina.Core.Handlers;
 using Fina.Core.Models;
-using Fina.Core.Requests.Bancos;
+using Fina.Core.Requests.Contas;
 using Fina.Core.Responses;
 
-namespace Fina.Api.Endpoints.Bancos;
+namespace Fina.Api.Endpoints.Contas;
 
-public class ObterBancoPorIdEndpoint : IEndpoint
+public class ObterContaPorIdEndpoint : IEndpoint
 {
     public static void Map(IEndpointRouteBuilder app)
         => app.MapGet("/{id}", HandleAsync)
-            .WithName("Bancos: Obter por Id")
-            .WithSummary("Retorna Banco por Id")
-            .WithDescription("Retorna Banco por Id")
+            .WithName("Contas: Obter por Id")
+            .WithSummary("Retorna Conta por Id")
+            .WithDescription("Retorna Conta por Id")
             .WithOrder(4)
-            .Produces<Response<Banco?>>();
+            .Produces<Response<Conta?>>();
 
     public static async Task<IResult> HandleAsync(
-        IBancoHandler handler,
+        IContaHandler handler,
         Guid id)
     {
-        var request = new ObterBancoPorIdRequest
+        var request = new ObterContaPorIdRequest
         {
             UsuarioId = ApiConfiguration.UsuarioId,
             Id = id

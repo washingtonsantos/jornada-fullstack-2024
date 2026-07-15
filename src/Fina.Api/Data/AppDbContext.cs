@@ -9,7 +9,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Categoria> Categorias { get; set; } = null!;
     public DbSet<SubCategoria> SubCategorias { get; set; } = null!;
     public DbSet<Transacao> Transacoes { get; set; } = null!;
-    public DbSet<Banco> Bancos { get; set; } = null!;
+    public DbSet<Conta> Contas { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

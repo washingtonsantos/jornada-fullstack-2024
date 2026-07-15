@@ -1,6 +1,6 @@
 ﻿using Fina.Api.Common.Api;
-using Fina.Api.Endpoints.Bancos;
 using Fina.Api.Endpoints.Categorias;
+using Fina.Api.Endpoints.Contas;
 using Fina.Api.Endpoints.Dashboard;
 using Fina.Api.Endpoints.Transacoes;
 
@@ -24,10 +24,10 @@ public static class Endpoint
         endpoints.MapGroup("api/v1/bancos")
             .WithTags("Bancos")
             //.RequireAuthorization()
-            .MapEndpoint<CriarBancoEndpoint>()
-            .MapEndpoint<AtualizarBancoEndpoint>()
-            .MapEndpoint<ExcluirBancoEndpoint>()
-            .MapEndpoint<ObterBancoPorIdEndpoint>()
+            .MapEndpoint<CriarContaEndpoint>()
+            .MapEndpoint<AtualizarContaEndpoint>()
+            .MapEndpoint<ExcluirContaEndpoint>()
+            .MapEndpoint<ObterContaPorIdEndpoint>()
             .MapEndpoint<ObterTodosBancosEndpoint>();
 
         endpoints.MapGroup("api/v1/categorias")

@@ -20,7 +20,6 @@ try
         .ReadFrom.Services(services));
 
     builder.Services.AddValidatorsFromAssemblyContaining<CriarTransacaoValidator>();
-    builder.Services.AddValidatorsFromAssembly(typeof(Fina.Core.Models.Categoria).Assembly);
 
     builder.AddConfiguration();
     builder.AddDataContext();

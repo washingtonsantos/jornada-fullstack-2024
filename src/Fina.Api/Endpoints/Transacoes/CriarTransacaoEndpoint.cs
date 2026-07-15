@@ -18,13 +18,12 @@ public class CriarTransacaoEndpoint : IEndpoint
             .Produces<Response<Transacao?>>();
 
     private static async Task<IResult> HandleAsync(
-        IValidator<CriarTransacaoRequest> _validator,
         ITransacaoHandler handler,
         CriarTransacaoRequest request) 
     {        
         request.UsuarioId = ApiConfiguration.UsuarioId;
 
-        var result = await handler.CreateAsync(request);
+        var result = await handler.CriarAsync(request);
         return result.Sucesso
             ? TypedResults.Created($"v1/transacoes/{result.Data?.Id}", result) 
             : TypedResults.BadRequest(result);

@@ -1,5 +1,6 @@
 ﻿using Fina.Api.Data;
 using Fina.Core.Common;
+using Fina.Core.Dtos.Transacoes;
 using Fina.Core.Handlers;
 using Fina.Core.Models;
 using Fina.Core.Requests.Transacoes;
@@ -13,7 +14,7 @@ namespace Fina.Api.Handlers;
 
 public class TransacaoHandler(AppDbContext context, ILogger<TransacaoHandler> logger) : ITransacaoHandler
 {
-    public async Task<Response<Transacao?>> CreateAsync(CriarTransacaoRequest request)
+    public async Task<Response<Transacao?>> CriarAsync(CriarTransacaoRequest request)
     {
         var validator = new CriarTransacaoValidator();
         ValidationResult result = validator.Validate(request);
@@ -134,7 +135,7 @@ public class TransacaoHandler(AppDbContext context, ILogger<TransacaoHandler> lo
         }
     }
 
-    public async Task<PagedResponse<List<Transacao?>>> ObterTransacaoPorPeriodoAsync(ObterTransacaoPorPeriodoRequest request)
+    public async Task<PagedResponse<List<TransacaoPorPeriodoDto?>>> ObterTransacaoPorPeriodoAsync(ObterTransacaoPorPeriodoRequest request)
     {
         try
         {
@@ -155,7 +156,17 @@ public class TransacaoHandler(AppDbContext context, ILogger<TransacaoHandler> lo
 
             var count = await query.CountAsync();
 
-            return new PagedResponse<List<Transacao?>>(Transacoes, 
+            return new PagedResponse<List<TransacaoPorPeriodoDto?>>(Transacoes.Select(t => new TransacaoPorPeriodoDto 
+            {
+                Id = t.Id,
+                Titulo = t.Titulo,
+                PagoRecebidoEm = t.PagoRecebidoEm,
+                TipoTransacao = t.TipoTransacao,
+                Valor = t.Valor,
+                StatusTransacao = t.StatusTransacao,
+                Categoria = t.Categoria,
+                SubCategoria = t.SubCategoria
+            }).ToList(), 
                 count,
                 request.PageNumber, 
                 request.PageSize);
@@ -163,7 +174,7 @@ public class TransacaoHandler(AppDbContext context, ILogger<TransacaoHandler> lo
         catch (Exception ex)
         {
             logger.LogError(ex, "Ocorreu um erro ao buscar Transação por período");
-            return new PagedResponse<List<Transacao?>>(null, 0, request.PageNumber, request.PageSize);
+            return new PagedResponse<List<TransacaoPorPeriodoDto?>>(null, 0, request.PageNumber, request.PageSize);
         }
     }
 

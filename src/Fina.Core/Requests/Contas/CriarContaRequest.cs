@@ -1,6 +1,6 @@
-﻿namespace Fina.Core.Requests.Bancos;
+﻿namespace Fina.Core.Requests.Contas;
 
-public class CriarBancoRequest : Request
+public class CriarContaRequest : Request
 {
     public string Nome { get; set; } = string.Empty;
 

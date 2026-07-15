@@ -22,7 +22,7 @@ public class AtualizarTransacaoValidatorTests
             CategoriaId = Guid.Parse("D2AFC928-38E8-4D8B-8C40-000000000001"),
             SubCategoriaId = null,
             DataEfetivado = DateTime.UtcNow,
-            TipoPagamentoRecebimento = Core.Enums.TipoPagamentoRecebimento.PIX,
+            TipoPagamentoRecebimento = Core.Enums.TipoPagamentoRecebimento.Pix,
             ContaId = Guid.Parse("bd7c019b-aa34-4447-9366-bc0e3366312d"),
             Efetivado = true,
             Recorrente = false,

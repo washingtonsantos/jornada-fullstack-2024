@@ -1,24 +1,24 @@
 ﻿using Fina.Api.Common.Api;
 using Fina.Core.Handlers;
 using Fina.Core.Models;
-using Fina.Core.Requests.Bancos;
+using Fina.Core.Requests.Contas;
 
-namespace Fina.Api.Endpoints.Bancos;
+namespace Fina.Api.Endpoints.Contas;
 
 public class ObterTodosBancosEndpoint : IEndpoint
 {
     public static void Map(IEndpointRouteBuilder app)
         => app.MapGet("/", HandleAsync)
-                .WithName("Bancos: Obter Todos")
-                .WithSummary("Retorna todos os Bancos")
-                .WithDescription("Retorna todos os Bancos")
+                .WithName("Contas: Obter Todos")
+                .WithSummary("Retorna todas as Contas")
+                .WithDescription("Retorna todas as Contas")
                 .WithOrder(5)
-                .Produces<List<Banco?>>();
+                .Produces<List<Conta?>>();
 
     private static async Task<IResult> HandleAsync(
-        IBancoHandler handler) 
+        IContaHandler handler) 
     {
-        var request = new ObterTodosBancosRequest
+        var request = new ObterTodasContasRequest
         {
             UsuarioId = ApiConfiguration.UsuarioId,
         };

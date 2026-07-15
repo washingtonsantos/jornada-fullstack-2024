@@ -1,0 +1,176 @@
+﻿@page "/transacoes/adicionar"
+@inherits CriarTransacaoPage
+@using Fina.Core.Common
+
+<MudCard Class="mt-4">
+    <MudCardContent>
+        <EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync" Spacing="2">
+
+            <DataAnnotationsValidator /> @* validação do data annotation da model *@
+            <ValidationSummary></ValidationSummary> @* vai exibir uma lista com todos os erros *@
+
+            @if (IsBusy)
+            {
+                <MudGrid>
+                    <MudItem xs="12" sm="6">
+                        <MudSkeleton Height="50px" Width="100%" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudSkeleton Height="50px" Width="100%" />
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Height="200px" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="3">
+                        <MudSkeleton Height="50px" Width="100%" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="3">
+                        <MudSkeleton Height="50px" Width="100%" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="3">
+                        <MudSkeleton Height="50px" Width="100%" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="3">
+                        <MudSkeleton Height="50px" Width="100%" />
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudSkeleton Height="50px" Width="120px" />
+                    </MudItem>
+                </MudGrid>
+            }
+            else
+            {
+                <MudGrid Spacing="3">
+                    @* Título e Valor *@
+                    <MudItem xs="12" sm="8">
+                        <MudTextField @bind-Value="InputModel.Titulo"
+                                      For="@(() => InputModel.Titulo)"
+                                      Label="Título"
+                                      Variant="Variant.Outlined"
+                                      Margin="Margin.Dense" />
+                    </MudItem>
+
+                    <MudItem xs="12" sm="4">
+                        <MudTextField @bind-Value="InputModel.Valor"
+                                      Label="Valor"
+                                      Variant="Variant.Outlined"
+                                      Margin="Margin.Dense"
+                                      Adornment="Adornment.Start"
+                                      AdornmentIcon="@Icons.Material.Filled.AttachMoney" />
+                    </MudItem>
+
+                    @* Descrição *@
+                    <MudItem xs="12">
+                        <MudTextField T="string"
+                                      Label="Descrição"
+                                      Variant="Variant.Outlined"
+                                      Lines="3"
+                                      @bind-Value="InputModel.Descricao" />
+                    </MudItem>
+
+                    @* Seleções (Tipo, Forma Pagto, Categoria, Subcategoria) *@
+                    <MudItem xs="12" sm="6" md="3">
+                        <MudSelect T="Core.Enums.TipoTransacao"
+                                   Label="Tipo de Transação"
+                                   Variant="Variant.Outlined"
+                                   Value="@InputModel.TipoTransacao"
+                                   ValueChanged="OnTipoTransacaoChanged"
+                                   Dense="true">
+                            <MudSelectItem T="Core.Enums.TipoTransacao" Value="Core.Enums.TipoTransacao.Receita">
+                                Receita
+                            </MudSelectItem>
+                            <MudSelectItem T="Core.Enums.TipoTransacao" Value="Core.Enums.TipoTransacao.Despesa">
+                                Despesa
+                            </MudSelectItem>
+                        </MudSelect>
+                    </MudItem>
+
+                    <MudItem xs="12" sm="6" md="3">
+                        <MudTextField T="DateTime?"
+                                      Format="yyyy-MM-dd"
+                                      Label="Pago ou Recebido em"
+                                      Variant="Variant.Outlined"
+                                      Value="@InputModel.PagoOuRecebidoEm"
+                                      InputType="InputType.Date" />
+                    </MudItem>
+
+                    <MudItem xs="12" sm="6" md="3">
+                        <MudSelect T="Guid"
+                                   Label="Categoria"
+                                   Variant="Variant.Outlined"
+                                   Value="@InputModel.CategoriaId"
+                                   ValueChanged="OnCategoriaChanged"
+                                   Dense="true">
+                            @foreach (Core.Models.Categoria item in Categorias)
+                            {
+                                <MudSelectItem Value="@item.Id">@item.Nome</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+
+                    <MudItem xs="12" sm="6" md="3">
+                        <MudSelect @bind-Value="InputModel.SubCategoriaId"
+                                   Label="Sub-Categoria"
+                                   Variant="Variant.Outlined"
+                                   Dense="true">
+                            @foreach (Core.Models.SubCategoria item in SubCategorias)
+                            {
+                                <MudSelectItem Value="@item.Id">@item.Nome</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+
+                    <MudItem xs="12" sm="6" md="3">
+                        <MudSwitch @bind-Value="InputModel.Efetivado"
+                                   Label="@(InputModel.Efetivado ? "Efetivado" : "Não Efetivado")"
+                                   Color="Color.Primary" />
+                    </MudItem>
+
+                    <MudItem xs="12" sm="6" md="3" hidden="@(InputModel.Efetivado ? false : true)">
+                        <MudTextField T="DateTime?"
+                                      Format="yyyy-MM-dd"
+                                      Label="Data Efetivado"
+                                      Variant="Variant.Outlined"
+                                      Value="@InputModel.DataEfetivado"
+                                      InputType="InputType.Date" />
+                    </MudItem>
+
+                    <MudItem xs="12" sm="6" md="3" hidden="@(InputModel.Efetivado ? false : true)">
+                        <MudSelect T="Core.Enums.TipoPagamentoRecebimento"
+                                   @bind-Value="TipoPagamentoRecebimento"
+                                   Label="Forma Pagamento"
+                                   Variant="Variant.Outlined"
+                                   Dense="true">
+                            @foreach (Core.Enums.TipoPagamentoRecebimento item in Enum.GetValues(typeof(Core.Enums.TipoPagamentoRecebimento)))
+                            {
+                                <MudSelectItem Value="@item">@item.GetDisplayName()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+
+                    <MudItem xs="12" sm="6" md="3" hidden="@(InputModel.Efetivado ? false : true)">
+                        <MudSelect @bind-Value="InputModel.ContaId"
+                                   Label="Conta"
+                                   Variant="Variant.Outlined"
+                                   Dense="true">
+                            @foreach (Core.Models.Conta item in Contas)
+                            {
+                                <MudSelectItem Value="@item.Id">@item.Nome</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+
+                    @* Ações *@
+                    <MudItem xs="12" Class="d-flex justify-start">
+                        <MudButton ButtonType="ButtonType.Submit"
+                                   Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   Class="px-8">
+                            Salvar
+                        </MudButton>
+                    </MudItem>
+                </MudGrid>
+            }
+        </EditForm>
+    </MudCardContent>
+</MudCard>

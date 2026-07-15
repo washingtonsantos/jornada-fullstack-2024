@@ -11,5 +11,5 @@ public interface ICategoriaHandler
     Task<Response<Categoria?>> RemoverAsync(RemoverCategoriaRequest request);
     Task<Response<Categoria?>> ObterPorIdAsync(ObterCategoriaPorIdRequest request);
     Task<Response<Categoria?>> ObterSubCategoriasDaCategoriaIdAsync(ObterSubCategoriasDaCategoriaIdRequest request);
-    Task<PagedResponse<List<Categoria?>>> ObterTodosAsync(ObterTodasCategoriasRequest request);
+    Task<PagedResponse<List<Categoria>>> ObterTodosAsync(ObterTodasCategoriasRequest request);
 }

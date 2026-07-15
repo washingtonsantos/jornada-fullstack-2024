@@ -45,7 +45,7 @@ namespace Fina.Api.Common.Api
 
         public static void AddDependencyInjection(this WebApplicationBuilder builder)
         {
-            builder.Services.AddTransient<IBancoHandler, BancoHandler>();
+            builder.Services.AddTransient<IContaHandler, ContaHandler>();
             builder.Services.AddTransient<ICategoriaHandler, CategoriaHandler>();
             builder.Services.AddTransient<ITransacaoHandler, TransacaoHandler>();
         }

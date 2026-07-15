@@ -1,26 +1,26 @@
 ﻿using Fina.Api.Common.Api;
 using Fina.Core.Handlers;
 using Fina.Core.Models;
-using Fina.Core.Requests.Bancos;
+using Fina.Core.Requests.Contas;
 using Fina.Core.Responses;
 
-namespace Fina.Api.Endpoints.Bancos;
+namespace Fina.Api.Endpoints.Contas;
 
-public class ExcluirBancoEndpoint : IEndpoint
+public class ExcluirContaEndpoint : IEndpoint
 {
     public static void Map(IEndpointRouteBuilder app) =>
         app.MapDelete("/{id}", HandleAsync)
-            .WithName("Bancos: Excluir")
-            .WithSummary("Exclui um Banco")
-            .WithDescription("Exclui um Banco")
+            .WithName("Contas: Excluir")
+            .WithSummary("Exclui uma Conta")
+            .WithDescription("Exclui uma Conta")
             .WithOrder(3)
-            .Produces<Response<Banco?>>();
+            .Produces<Response<Conta?>>();
 
     private static async Task<IResult> HandleAsync(
-        IBancoHandler handler,
+        IContaHandler handler,
         Guid id)
     {
-        var request = new RemoverBancoRequest
+        var request = new RemoverContaRequest
         {
             UsuarioId = ApiConfiguration.UsuarioId,
             Id = id

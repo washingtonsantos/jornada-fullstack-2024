@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fina.Api.Tests", "src\Fina.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{259AA9CE-B117-4A77-8AEC-9CD4C91479BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fina.App", "src\Fina.App\Fina.App.csproj", "{49609884-0940-008A-FF66-03DBF9D89D20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3FAC1D84-D614-26AD-E863-4638A6D5C7FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FAC1D84-D614-26AD-E863-4638A6D5C7FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FAC1D84-D614-26AD-E863-4638A6D5C7FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49609884-0940-008A-FF66-03DBF9D89D20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49609884-0940-008A-FF66-03DBF9D89D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49609884-0940-008A-FF66-03DBF9D89D20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49609884-0940-008A-FF66-03DBF9D89D20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{9C623045-1BC0-4E0C-970E-C66DDDBC938E} = {BE9DDFC4-4455-48A1-92AC-AD54239D6F50}
 		{2364AB4B-DD93-4140-AE14-7F9AB84C3343} = {BE9DDFC4-4455-48A1-92AC-AD54239D6F50}
 		{3FAC1D84-D614-26AD-E863-4638A6D5C7FE} = {259AA9CE-B117-4A77-8AEC-9CD4C91479BB}
+		{49609884-0940-008A-FF66-03DBF9D89D20} = {BE9DDFC4-4455-48A1-92AC-AD54239D6F50}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8A2F2BD-EA02-4EBA-BC9C-23B22486374F}

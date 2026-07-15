@@ -1,17 +1,18 @@
-﻿using Fina.Core.Handlers;
-using Fina.Core.Models;
-using Fina.Core.Requests.Categorias;
+﻿using Fina.Core.Common;
+using Fina.Core.Dtos.Transacoes;
+using Fina.Core.Handlers;
+using Fina.Core.Requests.Transacoes;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
-namespace Fina.App.Pages.Categorias;
+namespace Fina.App.Pages.Transacoes;
 
-public partial class GetAllCategoriesPage : ComponentBase
+public partial class ObterTodasTransacoesPage : ComponentBase
 {
     #region Properties
 
     public bool IsBusy { get; set; } = false;
-    public List<Categoria?> Categorias { get; set; } = [];
+    public List<TransacaoPorPeriodoDto?> Transacoes { get; set; } = [];
     public string SearchTerm { get; set; } = string.Empty;
 
     #endregion
@@ -25,7 +26,7 @@ public partial class GetAllCategoriesPage : ComponentBase
     private IDialogService DialogService { get; set; } = null!;
 
     [Inject]
-    private ICategoriaHandler Handler { get; set; } = null!;
+    private ITransacaoHandler Handler { get; set; } = null!;
 
     #endregion
 
@@ -37,10 +38,17 @@ public partial class GetAllCategoriesPage : ComponentBase
 
         try
         {
-            var request = new ObterTodasCategoriasRequest { PageSize = 25, PageNumber = 1 };
-            var result = await Handler.ObterTodosAsync(request);
+            var hoje = DateTime.UtcNow.Date;
+            var request = new ObterTransacaoPorPeriodoRequest
+            {
+                PageSize = 25,
+                PageNumber = 1,
+                DataInicio = new DateTime(hoje.Year, hoje.Month, 1),
+                DataFim = new DateTime(hoje.Year, hoje.Month, hoje.GetLastDay(hoje.Year, hoje.Month).Day)
+            };
+            var result = await Handler.ObterTransacaoPorPeriodoAsync(request);
             if (result.Sucesso)
-                Categorias = result.Data ?? [];
+                Transacoes = result.Data ?? [];
         }
         catch (Exception ex)
         {
@@ -74,19 +82,19 @@ public partial class GetAllCategoriesPage : ComponentBase
     {
         try
         {
-            IsBusy = true;
+            //IsBusy = true;
 
-            var result = await Handler.RemoverAsync(
-                new RemoverCategoriaRequest
-                {
-                    Id = id
-                });
+            //var result = await Handler.RemoverAsync(
+            //    new RemoverCategoriaRequest
+            //    {
+            //        Id = id
+            //    });
 
-            if (result.Sucesso)
-            {
-                Snackbar.Add(result.Mensagem, Severity.Info);
-                Categorias.RemoveAll(x => x.Id == id);
-            }
+            //if (result.Sucesso)
+            //{
+            //    Snackbar.Add(result.Mensagem, Severity.Info);
+            //    Transacoes.RemoveAll(x => x.Id == id);
+            //}
         }
         catch (Exception ex)
         {

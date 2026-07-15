@@ -1,23 +1,23 @@
-﻿@page "/categorias"
-@using Fina.App.Pages.Categorias
-@inherits GetAllCategoriesPage
+﻿@page "/transacoes"
+@inherits ObterTodasTransacoesPage
 
-<MudText Typo="Typo.h3">Categorias</MudText>
+
+<MudText Typo="Typo.h3">Transações</MudText>
 <div class="d-flex justify-end">
     <MudButton Variant="Variant.Filled"
                Color="Color.Primary"
                StartIcon="@Icons.Material.TwoTone.Add"
-               Href="/categorias/adicionar">
-        Nova Categoria
+               Href="/transacoes/adicionar">
+        Nova Transação
     </MudButton>
 </div>
 
 <MudDataGrid Class="mt-4"
-             Items="@Categorias"
+             Items="@Transacoes"
              Filterable="true">
     <Columns>
         <PropertyColumn Property="x => x.Id" Title="#" />
-        <PropertyColumn Property="x => x.Nome" Title="Categoria" />
+        <PropertyColumn Property="x => x.Titulo" Title="Transação" />
         @if (IsBusy)
         {
             <MudProgressCircular Indeterminate="true" />
@@ -29,7 +29,7 @@
                     <MudIconButton Icon="@Icons.Material.Filled.Delete"
                                    Color="Color.Error"
                                    title="excluir"
-                                   OnClick="() => OnDeleteButtonClickedAsync(context.Item.Id, context.Item.Nome)">
+                                   OnClick="() => OnDeleteButtonClickedAsync(context.Item.Id, context.Item.Titulo)">
                     </MudIconButton>
                 </CellTemplate>
             </TemplateColumn>

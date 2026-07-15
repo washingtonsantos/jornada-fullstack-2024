@@ -9,10 +9,10 @@
         <DataAnnotationsValidator /> @* validação do data annotation da model *@
         <ValidationSummary></ValidationSummary> @* vai exibir uma lista com todos os erros *@
 
-        <MudTextField Label="Titulo"
+        <MudTextField Label="Nome"
                       HelperText="Campo obrigatório"
-                      @bind-Value="InputModel.Titulo"
-                      For="@(() => InputModel.Titulo)"/>
+                      @bind-Value="InputModel.Nome"
+                      For="@(() => InputModel.Nome)" />
 
         <MudTextField Label="Descrição"
                       Lines="5"
